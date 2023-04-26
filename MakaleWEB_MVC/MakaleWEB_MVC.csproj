@@ -136,6 +136,8 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.6.4.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.4.min.map" />
+    <Content Include="Views\Shared\_PartialPageKategoriler.cshtml" />
+    <Content Include="Views\Shared\_PartialPagekat2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -151,6 +153,10 @@
     <ProjectReference Include="..\Makale_BLL\Makale_BLL.csproj">
       <Project>{d5803547-8f4d-47f2-983d-d40f633546b5}</Project>
       <Name>Makale_BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Makale_Entities\Makale_Entities.csproj">
+      <Project>{F2093925-2659-4E5A-9420-D1C8FBF56461}</Project>
+      <Name>Makale_Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

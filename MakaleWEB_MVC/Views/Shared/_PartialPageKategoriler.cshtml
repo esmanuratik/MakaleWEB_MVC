@@ -1,0 +1,17 @@
+﻿@using Makale_BLL;
+@using Makale_Entities; 
+
+    @{ 
+        KategoriYönet ky = new KategoriYönet();
+        List<Kategori>liste=ky.Listele();
+    }
+
+<p class="lead">Kategoriler</p>
+<div class="list-group">
+
+    @foreach (var item in liste)
+    {
+        <a href="#" class="list-group-item">@item.Baslik</a>
+    }
+
+</div>

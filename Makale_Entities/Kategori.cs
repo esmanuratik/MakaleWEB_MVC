@@ -17,6 +17,12 @@ namespace Makale_Entities
         public string Aciklama { get; set; }
         
         public virtual List<Makale> Makaleler { get; set; } //bir kategorinin birden fazla makalesi olabilir
+       
+        public Kategori()  //kullanıcı atmak için ctor oluşturup new ile örneklenmesi lazım yani bellekte bir yer                       ayırmış oldu.(veritabnıolusturucu.cs de makale eklediğimizde hata vermmesi için)
+        {
+            Makaleler = new List<Makale>();
+        }
+
     }
 
 }

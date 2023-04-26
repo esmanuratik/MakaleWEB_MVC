@@ -1,4 +1,6 @@
-﻿using Makale_DAL;
+﻿using FakeData;
+using Makale_DAL;
+using Makale_Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,13 +12,65 @@ namespace Makale_BLL
 {
     public class Test
     {
-        public Test() //test classında iş yaptırmak için ctor yaptık öteki türlü test. vs diyerek metot çağırmak             gerekirdi
+        Repository<Kullanici> rep_kul = new Repository<Kullanici>();
+        public Test() //test classında iş yaptırmak için ctor yaptık öteki türlü test. vs diyerek metot              çağırmak gerekirdi.
         { 
-            DatabaseContext db= new DatabaseContext();
+            //DatabaseContext db= new DatabaseContext();
             //db.Kullanicilar.ToList();
-            db.Database.CreateIfNotExists();//database ilk kez create edilirken kullanabilirsin fakat bu database                                varken oluşmaz  
+            //db.Database.CreateIfNotExists();//database ilk kez create edilirken kullanabilirsin fakat bu database                                varken oluşmaz  
 
+            //Bu işlemler için repository de var olan metotları kullancağım.
+
+            
+            List<Kullanici> sonuc =rep_kul.Liste(); 
+            List<Kullanici> liste =rep_kul.Liste(x=>x.Admin==true);//admin = true olanları listele
 
         }
+        public void EkleTest()
+        {
+            rep_kul.Insert(new Kullanici() { Adi="test",Soyad="test",Admin=false,Aktif=true,AktifGuid=Guid.NewGuid(),Email="test",KayitTarihi=DateTime.Now,DegistirenKullanici="esmanur",DegistirmeTarihi=DateTime.Now,KullaniciAdi="test",Sifre="test"});
+        }
+        public void UpdateTest()
+        {
+           Kullanici kul= rep_kul.Find(x => x.KullaniciAdi == "test");
+            if(kul != null)//başkası tarafında kayıt silinmiş de olabilir kontrollü gitmek için koşul yaz
+            {
+                kul.Adi = "deneme";
+                kul.Soyad = "deneme";
+                rep_kul.Update(kul);
+            }
+        }
+        public void DeleteTest()
+        {
+            Kullanici kul=rep_kul.Find(x=>x.KullaniciAdi=="test");
+            if (kul!=null)
+            {
+                rep_kul.Delete(kul);
+            }
+
+        }
+        public void YorumTest()
+        {
+            Repository<Makale> rep_makale=new Repository<Makale>();
+            Repository<Yorum> rep_yorum=new Repository<Yorum>();  
+
+            Makale m = rep_makale.Find(x => x.Id == 1);
+            Kullanici k = rep_kul.Find(x => x.Id == 1);
+
+            Yorum yorum = new Yorum() { 
+                Text = "deneme yorumu",
+                KayitTarihi=DateTime.Now,
+                DegistirmeTarihi=DateTime.Now,
+                DegistirenKullanici="esmanur",
+                Kullanici=k,
+                Makale=m
+            };
+            rep_yorum.Insert(yorum);
+           
+        }
+
     }
+
 }
+
+

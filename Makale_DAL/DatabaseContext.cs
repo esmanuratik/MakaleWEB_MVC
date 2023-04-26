@@ -14,7 +14,12 @@ namespace Makale_DAL
         public DbSet<Makale> Makaleler { get; set; }
         public DbSet<Kullanici> Kullanicilar { get; set; }
         public DbSet<Yorum>Yorumlar { get; set; }
-        public DbSet<Begeni>Begeniler { get; set; } 
+        public DbSet<Begeni>Begeniler { get; set; }
+        
+        public DatabaseContext()  //veritabamı oluşturucun tetiklenmesi ctor ile yaparız
+        {
+            Database.SetInitializer(new VeriTabaniOluşturucu());
+        }
 
 
     }
