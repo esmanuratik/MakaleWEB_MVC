@@ -99,6 +99,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\shop-homepage.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -111,6 +112,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Resimler\91634a26a5b9eb320864628ad6702999.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.6.4.intellisense.js" />
@@ -138,6 +140,13 @@
     <Content Include="Scripts\jquery-3.6.4.min.map" />
     <Content Include="Views\Shared\_PartialPageKategoriler.cshtml" />
     <Content Include="Views\Shared\_PartialPagekat2.cshtml" />
+    <Content Include="Views\Home\Hakkımızda.cshtml" />
+    <Content Include="Views\Home\Giris.cshtml" />
+    <Content Include="Views\Home\KayitOl.cshtml" />
+    <Content Include="Views\Home\KayitBasarili.cshtml" />
+    <Content Include="Views\Home\HesapAktiflestir.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\Profil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -153,6 +162,10 @@
     <ProjectReference Include="..\Makale_BLL\Makale_BLL.csproj">
       <Project>{d5803547-8f4d-47f2-983d-d40f633546b5}</Project>
       <Name>Makale_BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Makale_Common\Makale_Common.csproj">
+      <Project>{11eac491-76cc-44de-a574-33c36fdaeb5d}</Project>
+      <Name>Makale_Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Makale_Entities\Makale_Entities.csproj">
       <Project>{F2093925-2659-4E5A-9420-D1C8FBF56461}</Project>

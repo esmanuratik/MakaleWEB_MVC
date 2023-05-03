@@ -42,11 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KategoriYönet.cs" />
+    <Compile Include="KullaniciYonet.cs" />
+    <Compile Include="MakaleBLL_Sonuc.cs" />
     <Compile Include="MakaleYonet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Makale_Common\Makale_Common.csproj">
+      <Project>{11eac491-76cc-44de-a574-33c36fdaeb5d}</Project>
+      <Name>Makale_Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Makale_DAL\Makale_DAL.csproj">
       <Project>{6a2b45f7-1862-446e-b735-4d36ad0ece9e}</Project>
       <Name>Makale_DAL</Name>

@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+}
+
+<link href="~/Content/login.css" rel="stylesheet" />
+
+<section class="login-i">
+
+    <div class="container">
+        <div class="row main">
+            <div class="form-header">
+                <h1 class="text-center ">Yönlendiriliyorsunuz...</h1>
+            </div>
+            <div class="main-content">
+
+                <div class="form-group ">
+
+                    <h2><span class="glyphicon glyphicon-remove"></span>Geçersiz İşlem</h2>
+                    <br />
+                    <p class="text-justify text-danger">
+                        @foreach (string item in (List<string>)ViewBag.hatalar )
+                        {
+                            @item
+                            <br />
+                        }
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+
+    //footer gizlensin parent eklemzssem sadece footer gizlenir ama hr yide gizlemek istersem parent koymalıyım.
+    $(function () {
+        $("footer").parent().hide();
+    });
+    //sayfa görüntülendikten sonra o locasyona götürsün
+    setTimeout(function () {
+        window.location="/Home/Index"
+    }, 3000);
+
+</script>
+
+
+

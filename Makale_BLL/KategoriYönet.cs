@@ -1,5 +1,6 @@
 ﻿using Makale_DAL;
 using Makale_Entities;
+using Makale_Entities.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,14 @@ namespace Makale_BLL
         {
            return rep_kat.Liste();
         }
+        public Kategori KategoriBul(int id)
+        {
+            return rep_kat.Find(x => x.Id==id);
+        }
 
+        public void KullaniciBul(RegisterModel model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

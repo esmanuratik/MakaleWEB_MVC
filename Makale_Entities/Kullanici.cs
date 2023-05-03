@@ -20,7 +20,9 @@ namespace Makale_Entities
         [Required, StringLength(100)]
         public string Email { get; set; }
         [Required, StringLength(20)]
-        public string Sifre { get; set; }   
+        public string Sifre { get; set; }
+        [StringLength(30)]
+        public string ProfilResimDosyaAdı  { get; set; }
         public bool Aktif { get; set; } //kayıt olduğunda aktivasyon kodu gelsin 
         [Required]
         public Guid AktifGuid { get; set; }

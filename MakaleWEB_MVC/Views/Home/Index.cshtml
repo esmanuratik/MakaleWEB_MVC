@@ -47,28 +47,44 @@
             </div>
 
             <div class="row">
+                @{
+                    Random r = new Random();
+                    int x = r.Next(200, 240);
+                    string link = "https://picsum.photos/id/"+ x +"/200/300"; 
+                }
 
                 @foreach (var item in Model)
                 {
+                    x = r.Next(200, 240);
+                    link = "https://picsum.photos/id/" + x + "/200/300";
+                   
+
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
+                            <img src="@link" alt="">
                             <div class="caption">
                                 <h4>
                                     <a href="#">@item.Baslik</a>
-                                </h4>                               
+                                </h4>
                                 <h6 class="text-right">
 
                                     <span class="glyphicon glyphicon-user">@item.Kullanici.KullaniciAdi</span>
                                     <br />
-                                    <span class="glyphicon glyphicon-time"></span>@item.DegistirmeTarihi.ToString("dd:MM:yy")
+                                    <span class="glyphicon glyphicon-time"></span>@item.DegistirmeTarihi.ToString("dd:MM:yy HH:mm:ss")
 
-                                </h6>
-                                <h4>
-                                    <a href="#"></a>
-                                </h4>
+                                </h6> @*//devamı butonu oluşturuldu*@
+                                @if (!string.IsNullOrEmpty(item.Icerik) && item.Icerik.Length > 60)
+                                {
+                                    <p>@item.Icerik.Substring(0, 60)</p>//0 dan 60 a kadar olan karakteri almak için                                               substring
+                                    <p class="pull-right"> <a href="#" class="btn btn-default btn-xs">devamı<span class="glyphicon glyphicon-chevron-right"></span></a></p>
 
-                                <p>@item.Icerik</p>
+                                }
+                                else
+                                {
+                                    <p>@item.Icerik</p>
+                                }
+
+
                             </div>
                             <div> <hr /></div>
                             <div class="ratings">
