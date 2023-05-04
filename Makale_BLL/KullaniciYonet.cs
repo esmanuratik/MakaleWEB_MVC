@@ -1,5 +1,5 @@
 ﻿using Makale_Common;
-using Makale_DAL;
+using MakaleDAL;
 using Makale_Entities;
 using Makale_Entities.ViewModel;
 using System;
@@ -89,7 +89,7 @@ namespace Makale_BLL
                 //kullancı var ise sonucu öyle döndürsün 
                 if (islemsonuc>0)
                 {
-                    sonuc.nesne = rep_kul.Find(x => x.KullaniciAdi == model.KullaniciAdi || x.Email == model.Email);
+                    sonuc.nesne = rep_kul.Find(x => x.KullaniciAdi == model.KullaniciAdi && x.Email == model.Email);
 
                     //aktivasyon maili gönderilmesi
 
@@ -104,6 +104,50 @@ namespace Makale_BLL
             }
             return sonuc;
         }
+        //profil resmi için oluşturulan metot
+        public MakaleBLL_Sonuc<Kullanici> KullaniciUpdate(Kullanici model)
+        {
+            MakaleBLL_Sonuc<Kullanici> sonuc = new MakaleBLL_Sonuc<Kullanici>();
+            //kullanıcıyı bul ve update et fakat aynı isimde olmaması lazım bunları kontrol edip izin vermemeliyiz.
+           Kullanici kullanici= rep_kul.Find(x => x.KullaniciAdi == model.KullaniciAdi || x.Email == model.Email);
+
+            if (kullanici!=null && kullanici.Id!=model.Id)//bulduğu kişi ben değilsem diye id ye bakmalıyım .Bir kişi bulduysan ve ben değilsem
+            {
+                if (kullanici.Email==model.Email)
+                {
+                    sonuc.hatalar.Add("Bu e-mail adresi kayıtlı");
+                }
+                if (kullanici.KullaniciAdi==model.KullaniciAdi)
+                {
+                    sonuc.hatalar.Add("Bu kullanıcı adı kayıtlı");
+                }
+                return sonuc;
+
+            }
+
+            else
+            {
+                sonuc.nesne=rep_kul.Find(x=>x.Id==model.Id);
+
+                sonuc.nesne.Adi = model.Adi;
+                sonuc.nesne.Soyad = model.Soyad;
+                sonuc.nesne.Email = model.Email;
+                sonuc.nesne.KullaniciAdi = model.KullaniciAdi;
+                sonuc.nesne.Sifre=model.Sifre;
+                sonuc.nesne.ProfilResimDosyaAdı = model.ProfilResimDosyaAdı;
+
+                
+                //kullanıcı update oldu  mu olmadı mı bakmak için(databasede sıkıntı var mı yok mu diye)
+                if (rep_kul.Update(sonuc.nesne)<1)
+                {
+                    sonuc.hatalar.Add("Profil bilgileri güncellenemedi");
+                }
+
+            }
+
+            return sonuc;
+        }
+
         public MakaleBLL_Sonuc<Kullanici> LoginKontrol(LoginModel model)
         {
             MakaleBLL_Sonuc<Kullanici> sonuc = new MakaleBLL_Sonuc<Kullanici>();

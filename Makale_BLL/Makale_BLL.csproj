@@ -49,13 +49,13 @@
     <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MakaleDAL\MakaleDAL.csproj">
+      <Project>{2fc3e8ab-e363-4e3d-97de-5f0522f7ba96}</Project>
+      <Name>MakaleDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Makale_Common\Makale_Common.csproj">
       <Project>{11eac491-76cc-44de-a574-33c36fdaeb5d}</Project>
       <Name>Makale_Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Makale_DAL\Makale_DAL.csproj">
-      <Project>{6a2b45f7-1862-446e-b735-4d36ad0ece9e}</Project>
-      <Name>Makale_DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Makale_Entities\Makale_Entities.csproj">
       <Project>{f2093925-2659-4e5a-9420-d1c8fbf56461}</Project>

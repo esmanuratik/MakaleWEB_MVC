@@ -150,7 +150,7 @@ namespace MakaleWEB_MVC.Controllers
             //ViewBag.hatalar = TempData["hatalar"];
             return View();  
         }
-        public ActionResult Profil()
+        public ActionResult ProfilGoster()
         {
             Kullanici kullanici= Session["login"] as Kullanici;
             //belki databseden slindi düşüncesiyle ilk kullanıcıyı hulduruyoruz:
@@ -163,9 +163,55 @@ namespace MakaleWEB_MVC.Controllers
             } 
       
           
-             return View();  
+             return View(sonuc.nesne);  
 
         }
+        [HttpGet]
+        public ActionResult ProfiDegistir()
+        {
+            //kullanıcı bilgilerini sessiondan alıyoruz
+            Kullanici kullanici = Session["login"] as Kullanici;
+
+            MakaleBLL_Sonuc<Kullanici> sonuc = kulky.KullaniciBul(kullanici.Id);
+
+            if (sonuc.hatalar.Count > 0)
+            {
+                TempData["hatalar"] = sonuc.hatalar;
+                return RedirectToAction("Error");
+            }
+
+
+            return View(sonuc.nesne);
+        }
+
+        [HttpPost]
+        public ActionResult ProfiDegistir(Kullanici model,HttpPostedFileBase profilresim)
+        {
+            ModelState.Remove("DegistirenKullanici");
+            if (ModelState.IsValid)
+            {
+                //resimi dosya seçe yükleme işlemi
+                if (profilresim != null && (profilresim.ContentType == "image/jpg" || profilresim.ContentType == "image/jpeg" || profilresim.ContentType == "image/png"))
+                {
+                    //dosya kayıt olmuş oldu.
+                    string dosya = $"user_{model.Id}.{profilresim.ContentType.Split('/')[1]}";
+                    profilresim.SaveAs(Server.MapPath($"~/Resimler/{dosya}"));
+
+                    model.ProfilResimDosyaAdı = dosya;//modelin resim dosya adı değişti ve kullanıcı yönette databaseden buldu resim attı
+                }
+                MakaleBLL_Sonuc<Kullanici> sonuc = kulky.KullaniciUpdate(model);
+                if (sonuc.hatalar.Count>0)
+                {
+                    sonuc.hatalar.ForEach(x => ModelState.AddModelError("", x));
+                    return View(model);
+                }
+            }
+                     
+            return View(model);
+        }
+
+
+        //ProfilSil
 
 
     }

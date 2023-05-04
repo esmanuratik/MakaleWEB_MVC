@@ -1,5 +1,5 @@
-﻿using FakeData;
-using Makale_DAL;
+﻿
+using MakaleDAL;
 using Makale_Entities;
 using System;
 using System.Collections.Generic;

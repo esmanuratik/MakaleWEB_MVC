@@ -43,14 +43,3 @@
 .remember {
     color: black;
 }
-.validation-summary-errors{
-    border:2px solid #15a2d4;
-    background-color:lightblue;
-    border-radius:8px;
-}
-.validation-summary-errors ul{
-    list-style-type:none;
-    padding:10px;
-    color:aliceblue;
-
-}

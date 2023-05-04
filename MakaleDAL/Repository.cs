@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Makale_DAL
+namespace MakaleDAL
 {
     public class Repository<T> : Singleton,IRepository<T> where T: class //T tipin class olduğunun koşulunu verdik T tip için başka birşey gönderemem çünkü dbset class dışında int vs kabul etmez.
 
@@ -62,7 +62,7 @@ namespace Makale_DAL
                 BaseClass obj = nesne as BaseClass; //nesne baseclass dan türetildiği için buna alındı.
                 
                 obj.DegistirmeTarihi = DateTime.Now;
-                obj.DegistirenKullanici = "system";//Sessiondaki kullanıcının buraya atılması lazım
+                obj.DegistirenKullanici = "system";
             }
 
             return db.SaveChanges();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,15 +12,15 @@ namespace Makale_Entities
     [Table("Kullanici")]
     public class Kullanici:BaseClass
     {
-        [StringLength(30)]
+        [StringLength(30),DisplayName("ADI:")]
         public string Adi {  get; set; }
-        [StringLength(30)]
+        [StringLength(30), DisplayName("SOYADI:")]
         public string Soyad {  get; set; }
-        [Required,StringLength(30)]
+        [Required,StringLength(30), DisplayName("KULLANICI ADI:")]
         public string KullaniciAdi { get; set; }
-        [Required, StringLength(100)]
+        [Required, StringLength(100), DisplayName("E-POSTA:")]
         public string Email { get; set; }
-        [Required, StringLength(20)]
+        [Required, StringLength(20), DisplayName("ŞİFRE:")]
         public string Sifre { get; set; }
         [StringLength(30)]
         public string ProfilResimDosyaAdı  { get; set; }

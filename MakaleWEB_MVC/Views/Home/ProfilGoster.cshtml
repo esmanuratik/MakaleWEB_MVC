@@ -1,0 +1,40 @@
+﻿@model Kullanici
+@{
+    ViewBag.Title = "Profiliniz";
+}
+
+<div class="container">
+    <div class="row">
+        <h2> @ViewBag.Title</h2>
+        <hr />  
+    </div> 
+    <div class="row">
+        <div class="col-md-3">
+            <img src="~/Resimler/@Model.ProfilResimDosyaAdı" class="img-circle" width="130" height="130"/>@*//herkesin profil resmi farklı olsun diye @model diye ekledik*@
+        </div>
+        <div class="col-md-5">
+            <h3>@(Model.Adi+""+Model.Soyad)</h3>
+            <br />
+            <h4><b>Email:</b>@Model.Email</h4>
+            <h4><b>Kullancı Adı:</b>@Model.KullaniciAdi</h4>
+            <br />
+        </div>
+        <div class="col-md-4"> @*/değiştir sil seçenekleri çıksın istersek*@
+
+            <!-- Split button -->
+            <div class="btn-group">
+                <button type="button" class="btn btn-warning">Seçenekler</button>
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>                  
+                </button>
+                <ul class="dropdown-menu">
+
+                    <li><a href="/Home/ProfiDegistir"><span class="glyphicon glyphicon-edit">&nbsp;</span>Değiştir</a></li>
+                    <li><a href="/Home/ProfilSil" onclick="return confirm('Silmek istediğinize emin misiniz?')"><span class="glyphicon glyphicon-trash">&nbsp;</span>Sil</a></li>    
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
