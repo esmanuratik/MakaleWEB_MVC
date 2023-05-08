@@ -22,10 +22,10 @@ namespace Makale_Entities
         public string Email { get; set; }
         [Required, StringLength(20), DisplayName("ŞİFRE:")]
         public string Sifre { get; set; }
-        [StringLength(30)]
+        [StringLength(30),ScaffoldColumn(false)]//scaffoldColumns gözükmesini engeller.
         public string ProfilResimDosyaAdı  { get; set; }
         public bool Aktif { get; set; } //kayıt olduğunda aktivasyon kodu gelsin 
-        [Required]
+        [Required, ScaffoldColumn(false)]
         public Guid AktifGuid { get; set; }
         public bool Admin { get; set; }//admin=false sıradan kullanıcı admin=true yönetici kullanıcı
 

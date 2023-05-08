@@ -1,4 +1,5 @@
 ﻿using Makale_Entities;
+using Makale_Common;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -40,7 +41,7 @@ namespace Makale_DAL
 
                 obj.KayitTarihi = tarih;
                 obj.DegistirmeTarihi = tarih;
-                obj.DegistirenKullanici = "system";
+                obj.DegistirenKullanici = Uygulama.login;
             } 
 
         

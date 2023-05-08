@@ -1,4 +1,5 @@
 ﻿using Makale_BLL;
+using Makale_Common;
 using Makale_Entities;
 using Makale_Entities.ViewModel;
 using System;
@@ -76,6 +77,7 @@ namespace MakaleWEB_MVC.Controllers
 
                 //ındexe atmadan önce login oldum sessionda bu bilgiyi saklamalıyım.
                 Session["login"] =sonuc.nesne;//bulduğu kullanıcıyı atmış oldum.
+                Uygulama.login = sonuc.nesne.KullaniciAdi;
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -90,7 +92,6 @@ namespace MakaleWEB_MVC.Controllers
         public ActionResult KayitOl(RegisterModel model) 
         {
            
-
             //kayıt işlemi yapılacak
             //aktivasyon maili gönderilecek
 
@@ -99,7 +100,7 @@ namespace MakaleWEB_MVC.Controllers
                 
                 MakaleBLL_Sonuc<Kullanici> sonuc= kulky.KullaniciKaydet(model);
                 //Kullancı adı ve email var mı kontrolü
-                kulky.KullaniciKaydet(model);
+              
                 if (sonuc.hatalar.Count>0)
                 {
                     //ModelState.AddModelError("","Bu Kullanıcı Adı ya da E-Mail Kayıtlı");
@@ -179,6 +180,7 @@ namespace MakaleWEB_MVC.Controllers
                 TempData["hatalar"] = sonuc.hatalar;
                 return RedirectToAction("Error");
             }
+            
 
 
             return View(sonuc.nesne);
@@ -199,19 +201,44 @@ namespace MakaleWEB_MVC.Controllers
 
                     model.ProfilResimDosyaAdı = dosya;//modelin resim dosya adı değişti ve kullanıcı yönette databaseden buldu resim attı
                 }
+
+                Uygulama.login = model.KullaniciAdi;
+
                 MakaleBLL_Sonuc<Kullanici> sonuc = kulky.KullaniciUpdate(model);
                 if (sonuc.hatalar.Count>0)
                 {
                     sonuc.hatalar.ForEach(x => ModelState.AddModelError("", x));
                     return View(model);
                 }
+                Session["login"] = sonuc.nesne;
+                return RedirectToAction("ProfilGoster");
+               
+
+            }
+            else 
+            {
+
+                return View(model);
             }
                      
-            return View(model);
         }
 
+        public ActionResult ProfilSil()//profil sil indexe yönlednirecek
+        {
+            Kullanici kullanici= Session["login"] as Kullanici;
+            MakaleBLL_Sonuc<Kullanici> sonuc = kulky.KullaniciSil(kullanici.Id);
+            kulky.KullaniciSil(kullanici.Id);
+            //hata var mı yok mu sildi mi silmedi mi kul.yönetten geldik
+            if (sonuc.hatalar.Count>0)
+            {
+                TempData["hatalar"] = sonuc.hatalar;
+                return RedirectToAction("Error");
+            }
+            Session.Clear();//bu kişi artık yok ve login değil bundan dolayı session temizlenecek.
+            return RedirectToAction("Index");
 
-        //ProfilSil
+            //kullancının makalesi varsa kullanıcyı silemezsin 
+        }
 
 
     }

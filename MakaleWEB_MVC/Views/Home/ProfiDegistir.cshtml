@@ -1,6 +1,6 @@
 ﻿@model Kullanici
 @{
-    ViewBag.Title = "ProfiDegistir";
+    ViewBag.Title = "Profili Değiştir";
 }
 <link href="~/Content/ValidationCSS.css" rel="stylesheet" />
 
@@ -10,9 +10,9 @@
         <hr />
     </div>
 
-   
-        @using (Html.BeginForm("ProfiDegistir", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
+
+    @using (Html.BeginForm("ProfiDegistir", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
 
 
 
@@ -31,7 +31,7 @@
                 <div class="col-md-6">
                     @Html.ValidationSummary(false)
 
-                    @Html.HiddenFor(x=>x.Id)  @*//modele ıd atamış olduk*@
+                    @Html.HiddenFor(x => x.Id)  @*//modele ıd atamış olduk*@
 
                     <div class="form-group">
                         @Html.LabelFor(x => x.Adi, new { @class = "control-label col-md-2" })
@@ -87,8 +87,11 @@
 
         </div>
 
-        }
+    }
 
 
 </div>
+@section footer{
+    @Html.Partial("_PartialPageFooter")
+}
 
