@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MakaleWEB_MVC.Models;
 
 namespace MakaleWEB_MVC.Controllers
 {
@@ -76,7 +77,8 @@ namespace MakaleWEB_MVC.Controllers
                 }
 
                 //ındexe atmadan önce login oldum sessionda bu bilgiyi saklamalıyım.
-                Session["login"] =sonuc.nesne;//bulduğu kullanıcıyı atmış oldum.
+                //Session["login"] =sonuc.nesne;//bulduğu kullanıcıyı atmış oldum.
+                SessionUser.Login = sonuc.nesne;//session modelde oluşturuldu artık bu şelikde kullanılacak
                 Uygulama.login = sonuc.nesne.KullaniciAdi;
                 return RedirectToAction("Index");
             }
@@ -153,9 +155,9 @@ namespace MakaleWEB_MVC.Controllers
         }
         public ActionResult ProfilGoster()
         {
-            Kullanici kullanici= Session["login"] as Kullanici;
+            //Kullanici kullanici= Session["login"] as Kullanici;
             //belki databseden slindi düşüncesiyle ilk kullanıcıyı hulduruyoruz:
-            MakaleBLL_Sonuc<Kullanici> sonuc = kulky.KullaniciBul(kullanici.Id);
+            MakaleBLL_Sonuc<Kullanici> sonuc = kulky.KullaniciBul(SessionUser.Login.Id);
 
             if (sonuc.hatalar.Count>0)
             {
@@ -171,9 +173,9 @@ namespace MakaleWEB_MVC.Controllers
         public ActionResult ProfiDegistir()
         {
             //kullanıcı bilgilerini sessiondan alıyoruz
-            Kullanici kullanici = Session["login"] as Kullanici;
+           // Kullanici kullanici = Session["login"] as Kullanici;
 
-            MakaleBLL_Sonuc<Kullanici> sonuc = kulky.KullaniciBul(kullanici.Id);
+            MakaleBLL_Sonuc<Kullanici> sonuc = kulky.KullaniciBul(SessionUser.Login.Id);
 
             if (sonuc.hatalar.Count > 0)
             {
@@ -210,7 +212,7 @@ namespace MakaleWEB_MVC.Controllers
                     sonuc.hatalar.ForEach(x => ModelState.AddModelError("", x));
                     return View(model);
                 }
-                Session["login"] = sonuc.nesne;
+                SessionUser.Login= sonuc.nesne;
                 return RedirectToAction("ProfilGoster");
                
 
@@ -225,9 +227,9 @@ namespace MakaleWEB_MVC.Controllers
 
         public ActionResult ProfilSil()//profil sil indexe yönlednirecek
         {
-            Kullanici kullanici= Session["login"] as Kullanici;
-            MakaleBLL_Sonuc<Kullanici> sonuc = kulky.KullaniciSil(kullanici.Id);
-            kulky.KullaniciSil(kullanici.Id);
+            //Kullanici kullanici= Session["login"] as Kullanici;
+            MakaleBLL_Sonuc<Kullanici> sonuc = kulky.KullaniciSil(SessionUser.Login.Id);
+           // kulky.KullaniciSil(SessionUser.Login.Id);
             //hata var mı yok mu sildi mi silmedi mi kul.yönetten geldik
             if (sonuc.hatalar.Count>0)
             {

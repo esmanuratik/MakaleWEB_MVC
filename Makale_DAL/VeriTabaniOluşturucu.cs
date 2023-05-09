@@ -16,7 +16,7 @@ namespace Makale_DAL
         {
             Kullanici admin = new Kullanici()//bir tane admin girişim olsun öteki kullanıcılar fakedata dan çekilecek
             {
-                Adi = "Esmanur",
+                 Adi = "Esmanur",
                  Soyad = "Atik",
                  Email = "esmanur@gmail.com",
                  Admin=true,

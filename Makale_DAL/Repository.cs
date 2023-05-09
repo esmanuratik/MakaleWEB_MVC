@@ -13,7 +13,7 @@ namespace Makale_DAL
     public class Repository<T> : Singleton,IRepository<T> where T: class //T tipin class olduğunun koşulunu verdik T tip için başka birşey gönderemem çünkü dbset class dışında int vs kabul etmez.
 
     {      
-        private DbSet<T>dbset;//dbSet e tekrar tekrar uzun yazarak ulaşmak yerine değişken tanımladım
+        private DbSet<T>dbset;//dbSet e tekrar tekrar uzun yazarak ulaşmak yerine değişken tanımladım.Değer atamak için ctor kullandım.
         public Repository()
         {
             dbset=db.Set<T>();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Makale_Entities
     [Table("Makale")]
     public class Makale:BaseClass
     {
-        [Required,StringLength(50)]
+        [Required,StringLength(50), DisplayName("Makale")]
         public string Baslik { get; set; }
         [Required, StringLength(1000)]
         public string Icerik { get; set; }
