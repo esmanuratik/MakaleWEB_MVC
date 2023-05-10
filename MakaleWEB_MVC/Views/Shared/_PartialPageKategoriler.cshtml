@@ -1,9 +1,11 @@
 ﻿@using Makale_BLL;
 @using Makale_Entities; 
+@using MakaleWEB_MVC.Models;
 
     @{ 
-        KategoriYönet ky = new KategoriYönet();
-        List<Kategori>liste=ky.Listele();
+        //KategoriYönet ky = new KategoriYönet();
+        //List<Kategori>liste=ky.Listele();
+        List<Kategori> liste = CacheHelper.KategoriCache();
     }
 
 <p class="lead">Kategoriler</p>

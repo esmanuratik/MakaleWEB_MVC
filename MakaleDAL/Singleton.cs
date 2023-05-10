@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MakaleDAL
+namespace Makale_DAL
 {
     public class Singleton //bu işlemi repositoryde de yapabilirdik design pattern dikkat çeksin belli olsun diye burada yazdık 
     {

@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MakaleDAL
+namespace Makale_DAL
 {
     public interface IRepository<T>//buradaki metotları bir classa verirsek bunları kull. zorunda kalır.
     {

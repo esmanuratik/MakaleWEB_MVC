@@ -52,7 +52,7 @@ namespace MakaleWEB_MVC.Controllers
             ModelState.Remove("Kategori.DegistirenKullanici");
             ModelState.Remove("Kategori.Aciklama");
 
-            ViewBag.Kategori = new SelectList(ky.Listele(), "Id", "Baslik", makale.Kategori.Id);//dropdownlisti doldurmak için
+            ViewBag.Kategori = new SelectList(CacheHelper.KategoriCache(), "Id", "Baslik", makale.Kategori.Id);//dropdownlisti doldurmak için
                                                     //makale.Kategori.Id sayfa post olduğunda boş gelmesin diye yazdık yoksa 
 
             if (ModelState.IsValid)

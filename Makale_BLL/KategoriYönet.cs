@@ -1,4 +1,4 @@
-﻿using MakaleDAL;
+﻿using Makale_DAL;
 using Makale_Entities;
 using Makale_Entities.ViewModel;
 using System;

@@ -3,7 +3,7 @@ using System;
 using System.Data.Entity;
 using System.Linq;
 
-namespace MakaleDAL
+namespace Makale_DAL
 {
     public class DatabaseContext : DbContext
     {

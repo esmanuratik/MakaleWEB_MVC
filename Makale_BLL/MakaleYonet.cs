@@ -1,4 +1,4 @@
-﻿using MakaleDAL;
+﻿using Makale_DAL;
 using Makale_Entities;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Makale_BLL
         Repository<Makale> rep_makale = new Repository<Makale>();
         MakaleBLL_Sonuc<Makale> sonuc = new MakaleBLL_Sonuc<Makale>();
         public List<Makale> Listele()
-        {    
+        {   
            return rep_makale.Liste();          
         }
  

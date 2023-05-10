@@ -1,5 +1,5 @@
 ﻿
-using MakaleDAL;
+using Makale_DAL;
 using Makale_Entities;
 using System;
 using System.Collections.Generic;

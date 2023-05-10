@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MakaleDAL
+namespace Makale_DAL
 {
     public class VeriTabaniOluşturucu:CreateDatabaseIfNotExists<DatabaseContext>
         //bu database yoksa create et amaç seed metotunu kullanarak fake data atmak.

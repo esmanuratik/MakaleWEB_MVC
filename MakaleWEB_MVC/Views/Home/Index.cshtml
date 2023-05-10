@@ -90,7 +90,7 @@
                             <div class="ratings">
 
                                 <p class="pull-right">
-                                    <button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-comment"></span> Yorumlar</button>
+                                    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal1"><span class="glyphicon glyphicon-comment"></span> Yorumlar</button>
                                 </p>
 
                                 <p>
@@ -110,6 +110,8 @@
 
 </div>
 <!-- /.container -->
+
+@_MyHelper.ModalPopup("modal1","Yorumlar")
 
 @*//footer istediğimiz yerde gözüksğn diye bununla çağırıyoruz.*@
 
