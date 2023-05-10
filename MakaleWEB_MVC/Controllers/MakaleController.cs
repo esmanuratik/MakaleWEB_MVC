@@ -105,7 +105,14 @@ namespace MakaleWEB_MVC.Controllers
             if (ModelState.IsValid)
             {
                 makale.Kategori = ky.KategoriBul(makale.Kategori.Id);//update etmeden önce kategorinin değiştiğini belirtiyroum
-                my.MakaleUpdate(makale);
+                
+                MakaleBLL_Sonuc<Makale> sonuc= my.MakaleUpdate(makale);
+                
+                if (sonuc.hatalar.Count > 0)
+                {
+                    sonuc.hatalar.ForEach(x => ModelState.AddModelError("", x));
+                    return View(makale);
+                }
                 return RedirectToAction("Index");
             }
             

@@ -10,15 +10,17 @@ namespace Makale_BLL
 {
     public class MakaleYonet
     {
-        Repository<Makale>rep_makale = new Repository<Makale>();
+        Repository<Makale> rep_makale = new Repository<Makale>();
         MakaleBLL_Sonuc<Makale> sonuc = new MakaleBLL_Sonuc<Makale>();
         public List<Makale> Listele()
-        {
-           return rep_makale.Liste();
+        {    
+           return rep_makale.Liste();          
         }
+ 
         public Makale MakaleBul(int id)
         {
             return rep_makale.Find(x => x.Id == id);
+          
         }
 
         public MakaleBLL_Sonuc<Makale> MakaleEkle(Makale makale)
@@ -39,14 +41,49 @@ namespace Makale_BLL
 
         }
 
-        public void MakaleSil(int id)
+        public MakaleBLL_Sonuc<Makale> MakaleSil(int id)
         {
-            throw new NotImplementedException();
+            sonuc.nesne=rep_makale.Find(X=>X.Id == id);
+
+            if (sonuc.nesne != null)
+            {
+                //foreach (var item in sonuc.nesne.Yorumlar)
+                //{
+
+                //}
+                if (rep_makale.Delete(sonuc.nesne) < 1)
+                {
+                    sonuc.hatalar.Add("Makale Silinemedi");
+                }
+            }
+            else
+            {
+                sonuc.hatalar.Add("Makale Bulunamadı");
+            }
+            return sonuc;
         }
 
-        public void MakaleUpdate(Makale makale)
+        public MakaleBLL_Sonuc<Makale>  MakaleUpdate(Makale makale)
         {
-            throw new NotImplementedException();
+            Makale nesne = rep_makale.Find(x => x.Baslik == makale.Baslik && x.Kategori.Id == makale.Kategori.Id &&x.Id!=makale.Id);
+
+            if (nesne!=null)
+            {
+                sonuc.hatalar.Add("Bu Makale Kayıtlı");
+            }
+            else
+            {
+                sonuc.nesne = rep_makale.Find(x => x.Id == makale.Id);
+                sonuc.nesne.Kategori=makale.Kategori;
+                sonuc.nesne.Baslik=makale.Baslik;   
+                sonuc.nesne.Icerik=makale.Icerik;
+                sonuc.nesne.Taslak=makale.Taslak;
+                if (rep_makale.Update(sonuc.nesne)<1)
+                {
+                    sonuc.hatalar.Add("Makale Güncellenemedi");
+                }
+            }
+            return sonuc;
         }
     }
 }

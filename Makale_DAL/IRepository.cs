@@ -13,6 +13,7 @@ namespace Makale_DAL
         int Update(T nesne);
         int Delete(T nesne);
         List<T> Liste();
+        IQueryable<T> ListQueryable();
         List<T> Liste(Expression<Func<T,bool>>kosul);//bir koşula bağlı listeleme yapsın.
         T Find(Expression<Func<T, bool>> kosul);
     }

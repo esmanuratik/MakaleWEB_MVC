@@ -30,6 +30,11 @@ namespace MakaleWEB_MVC.Controllers
             
             return View(my.Listele());
         }
+        public ActionResult Begendiklerim()
+        {
+            var liste=my.Listele();
+            return View("Index",liste);
+        }
         public ActionResult Kategori(int? id)//kategorilere bastığımda o kategoriye gitsin makaleyi getirsin.
         { //App_Start---routeconfing.cs da id old için burada id kullanıldı url ler buna göre oluşuyor.
             if (id==null)

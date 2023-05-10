@@ -11,8 +11,6 @@
         <hr />
 
     </div>
-   
-
 </div>
 
 <div class="row">
@@ -62,7 +60,9 @@
                     <td>
                         @*//HTML.HelperLink  yerine bir dosyaya bunu yazarak da kulanabilirz*@
 
-                         @_MyHelper.LinkButton("/Kategori/Edit/"+item.Id,"link","success","btn-xs","edit","Düzenle")@_MyHelper.LinkButton("/Kategori/Details/"+item.Id,"link","warning","btn-xs","searche","Detay")  @_MyHelper.LinkButton("/Kategori/Delete/"+item.Id,"link","danger","btn-xs","trash","Sil")
+                         @_MyHelper.LinkButton("/Kategori/Edit/"+item.Id,"link","success","btn-xs","edit","Düzenle")
+                        @_MyHelper.LinkButton("/Kategori/Details/"+item.Id,"link","warning","btn-xs","searche","Detay") 
+                        @_MyHelper.LinkButton("/Kategori/Delete/"+item.Id,"link","danger","btn-xs","trash","Sil")
 
                         @*@Html.ActionLink("Düzenle", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-xs" })*@
                         @*@Html.ActionLink("Detay", "Details", new { id = item.Id }, new { @class = "btn btn-warning btn-xs" })

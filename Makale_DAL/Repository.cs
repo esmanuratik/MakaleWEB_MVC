@@ -11,18 +11,22 @@ using System.Threading.Tasks;
 namespace Makale_DAL
 {
     public class Repository<T> : Singleton,IRepository<T> where T: class //T tipin class olduğunun koşulunu verdik T tip için başka birşey gönderemem çünkü dbset class dışında int vs kabul etmez.
-
     {      
-        private DbSet<T>dbset;//dbSet e tekrar tekrar uzun yazarak ulaşmak yerine değişken tanımladım.Değer atamak için ctor kullandım.
+        private DbSet<T> dbset;//dbSet e tekrar tekrar uzun yazarak ulaşmak yerine değişken tanımladım.Değer atamak için ctor kullandım.
         public Repository()
         {
             dbset=db.Set<T>();
         }
         public List<T> Liste()
         {
+            
             /*return db.Set<T>().ToList();*///DatabaseContext deki Db<Set> ler gibi yazdık ve erişmeye çalıştık
             return dbset.ToList();
            
+        }
+        public IQueryable<T> ListQueryable()
+        {
+            return dbset.AsQueryable();    
         }
 
         public List<T> Liste(Expression<Func<T, bool>> kosul)
@@ -51,6 +55,7 @@ namespace Makale_DAL
         public int Delete(T nesne)
         {
             dbset.Remove(nesne);
+           
             return db.SaveChanges();
         }
 

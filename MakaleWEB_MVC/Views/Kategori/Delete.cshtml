@@ -4,6 +4,7 @@
     ViewBag.Title = "Kategori Sil";
     
 }
+
 <div class="row">
 
     <div class="col-md-10 col-md-offset-1">
@@ -62,10 +63,13 @@
         {
             @Html.AntiForgeryToken()
 
-            <div class="form-actions no-color">
-                <input type="submit" value="Sil" class="btn btn-danger" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
+        <div class="form-actions no-color">
+            @*<input type="submit" value="Sil" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")*@
+
+            @_MyHelper.Button("submit", "btn", "danger", "", "", "Sil")
+            @_MyHelper.LinkButton("/Makale/Index", "link", "warning", "", "", "Listeye Dön")
+        </div>
         }
     </div>
 </div>
