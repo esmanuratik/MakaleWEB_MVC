@@ -1,36 +1,70 @@
-﻿
+﻿@using Makale_Entities
+@using MakaleWEB_MVC.Models
 
-<div class="media">
-    <div class="media-left media-middle">
-        
+@model List<Yorum>
+@{
+    Kullanici kullanici = SessionUser.Login;
+}
+
+@foreach (var item in Model)
+{
+    <div class="media">
+        <div class="media-left media-top">
+
             <div class="media-object">
-                <span class="glyphicon glyphicon-comment" ></span> 
+                <span class="glyphicon glyphicon-comment"></span>
+
+            </div>
 
         </div>
-        
-    </div>
-    <div class="media-body">
-        <div>
-            <span class="col-md-10">
-            Sapien nmscndjkscnkdsncdnc mdcnsmncmsd sncsncksn cdnsdnsdj dbjdsbjdbc bdjsnfce
-            </span>
-            <span class="col-md-2">
-                <button type="button" class="btn btn-warning btn-xs">
-                    <span class="glyphicon glyphicon-edit"></span>
-                </button>
-                <button type="button" class="btn btn-danger btn-xs">
-                    <span class="glyphicon glyphicon-trash"></span>
-                </button>
+        <div class="media-body">
+            <div>
+                <span class="col-md-10 " contenteditable="false" id="yorum_@item.Id">
+                    @*//true yaparsan span textbox a dönüşür.*@
+                    @item.Text
+                </span>
+                @if (kullanici != null && kullanici.Id == item.Kullanici.Id)
+                {
+                    <span class="col-md-2 text-right">
+                        <button type="button" class="btn btn-warning btn-xs" data-editmod="false" onclick="islemyap(this,'update',@item.Id,'#yorum_@item.Id')" ;>
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
 
-            </span>
-            <small class="col-md-12">
-                <span class="glyphicon glyphicon-user"></span> Kullanıcı Adı
-                <span class="glyphicon glyphicon-time"></span> Zaman
-            </small>
+                        <button type="button" class="btn btn-danger btn-xs" data-editmod="false" onclick="islemyap(this, 'delete',@item.Id)" ;>
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+
+                    </span>
+                }
+                <small class="col-md-12 text-right">
+                    <span class="glyphicon glyphicon-user"></span> @item.Kullanici.KullaniciAdi @*//yorumu kim yazdı*@
+                    <span class="glyphicon glyphicon-time"></span> @item.DegistirmeTarihi @*//zaman*@
+                </small>
+            </div>
+
         </div>
-        
     </div>
-</div>
- 
-           
+}
+@if (kullanici != null)
+{<div class="row">
+    <div class="col-md-12">
+        <hr />
+    </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group">
+                <input type="text" id="yorum_text" class="form-control" placeholder="Yorumunuz">
+                <span class="input-group-btn">
+                    <button class="btn btn-info" type="button" onclick="islemyap(this, 'insert';)">Gönder</button>
+                </span>
+            </div><!-- /input-group -->
+
+        </div>
+    </div>
+}
+
+
+
 

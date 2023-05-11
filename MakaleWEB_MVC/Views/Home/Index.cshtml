@@ -10,7 +10,7 @@
     <div class="row">
 
         <div class="col-md-3">
-           @Html.Partial("_PartialPageKategoriler")
+            @Html.Partial("_PartialPageKategoriler")
         </div>
 
         <div class="col-md-9">
@@ -50,14 +50,14 @@
                 @{
                     Random r = new Random();
                     int x = r.Next(200, 240);
-                    string link = "https://picsum.photos/id/"+ x +"/200/300"; 
+                    string link = "https://picsum.photos/id/" + x + "/200/300";
                 }
 
                 @foreach (var item in Model)
                 {
                     x = r.Next(200, 240);
                     link = "https://picsum.photos/id/" + x + "/200/300";
-                   
+
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
@@ -90,7 +90,7 @@
                             <div class="ratings">
 
                                 <p class="pull-right">
-                                    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal1"><span class="glyphicon glyphicon-comment"></span> Yorumlar</button>
+                                    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal1" data-makaleid="@item.Id"><span class="glyphicon glyphicon-comment"></span> Yorumlar</button>
                                 </p>
 
                                 <p>
@@ -111,10 +111,14 @@
 </div>
 <!-- /.container -->
 
-@_MyHelper.ModalPopup("modal1","Yorumlar")
+
+
+@_MyHelper.ModalPopup("modal1", "Yorumlar")
 
 @*//footer istediğimiz yerde gözüksğn diye bununla çağırıyoruz.*@
 
 @section footer{
     @Html.Partial("_PartialPageFooter")
-    }
+}
+
+<script src="~/Scripts/CommentScript.js"></script>
