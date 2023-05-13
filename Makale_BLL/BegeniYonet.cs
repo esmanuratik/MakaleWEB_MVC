@@ -12,10 +12,14 @@ namespace Makale_BLL
     public class BegeniYonet
     {
         Repository<Begeni> rep_begen=new Repository<Begeni>();
-        public IQueryable<Begeni> ListQueryable()
+        public IQueryable<Begeni> ListQueryable()//beğeni tablosunu veriyor.
         {
             return rep_begen.ListQueryable();
 
+        }
+        public List<Begeni> Liste()//listquarable da where kullanımına izin vermediği için  bunu yazdık. 
+        {
+            return rep_begen.Liste();
         }
     }
 }

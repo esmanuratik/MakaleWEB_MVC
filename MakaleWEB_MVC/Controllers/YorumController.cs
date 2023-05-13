@@ -1,5 +1,6 @@
 ﻿using Makale_BLL;
 using Makale_Entities;
+using MakaleWEB_MVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,30 +82,34 @@ namespace MakaleWEB_MVC.Controllers
             return Json(new { hata = true }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult YorumEkle(Yorum nesne,int? id)
+        public ActionResult YorumEkle(Yorum nesne, int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            YorumYonet yy = new YorumYonet();
-            Yorum yorum = yy.YorumBul(id.Value);
+            MakaleYonet my = new MakaleYonet();
+            Makale makale = my.MakaleBul(id.Value);
 
-            if (yorum == null)
+            if (makale == null)
             {
                 return HttpNotFound();
             }
 
-            if (yy.YorumEkle(yorum) > 0)
+            nesne.Makale = makale;
+            nesne.Kullanici = SessionUser.Login;
+
+            YorumYonet yy = new YorumYonet();
+
+            if (yy.YorumEkle(nesne) > 0)
             {
-                //hatayı json  formatında dönücem
                 return Json(new { hata = false }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { hata = true }, JsonRequestBehavior.AllowGet);
-
-
         }
+
+
     }
 }

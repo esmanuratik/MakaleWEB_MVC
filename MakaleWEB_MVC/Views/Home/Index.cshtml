@@ -59,7 +59,7 @@
                     link = "https://picsum.photos/id/" + x + "/200/300";
 
 
-                    <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="col-sm-4 col-lg-4 col-md-4" data-makaleid="@item.Id">@*//sayfa yükledniğindeki divlerin içindeki ıdleri çek*@ 
                         <div class="thumbnail">
                             <img src="@link" alt="">
                             <div class="caption">
@@ -94,7 +94,7 @@
                                 </p>
 
                                 <p>
-                                    <button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-heart "></span> @item.BegeniSayisi</button>
+                                    <button class="btn btn-default btn-sm " data-mid="@item.Id" data-like="false"@*//butona bastım kalbin içini doldur classa bastım kalbin içini boşalt demek için data -like ="false oldu"*@><span class="glyphicon glyphicon-heart-empty like-kalp "></span> <span class="like-count">@item.BegeniSayisi</span></button>
 
                                 </p>
 
@@ -122,3 +122,5 @@
 }
 
 <script src="~/Scripts/CommentScript.js"></script>
+
+<script src="~/Scripts/LikeScript.js"></script>

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using Makale_Entities;
 using Makale_BLL;
 using MakaleWEB_MVC.Models;
+using System.Security.Cryptography;
 
 namespace MakaleWEB_MVC.Controllers
 {
@@ -141,6 +142,21 @@ namespace MakaleWEB_MVC.Controllers
         {
             my.MakaleSil(id);
             return RedirectToAction("Index");
-        }       
+        }
+        [HttpPost]
+        public ActionResult MakaleGetir(int[] mid)
+        {
+            BegeniYonet by=new BegeniYonet();
+
+            List<int> mliste = null;
+
+            if (SessionUser.Login!=null) 
+            {
+                mliste = by.Liste().Where(x => x.Kullanici.Id == SessionUser.Login.Id && mid.Contains(x.Makale.Id)).Select(x => x.Makale.Id).ToList();
+               
+            }
+            return Json(new { liste = mliste });
+
+        }
     }
 }
