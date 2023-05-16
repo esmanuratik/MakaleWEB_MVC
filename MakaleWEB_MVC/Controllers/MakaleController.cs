@@ -11,19 +11,29 @@ using Makale_Entities;
 using Makale_BLL;
 using MakaleWEB_MVC.Models;
 using System.Security.Cryptography;
+using System.Web.Razor.Text;
+using MakaleWEB_MVC.Filter;
 
 namespace MakaleWEB_MVC.Controllers
 {
+
+    [ExcFilter]//kedni yazdığım hata sayfası için oluşturduğum filter
     public class MakaleController : Controller
     {
        MakaleYonet my=new MakaleYonet();
         KategoriYönet ky= new KategoriYönet();
+        [Auth]
         public ActionResult Index()
         {
-            Kullanici kullanici = Session["login"] as Kullanici ;   //sessiondan bilgi çekiyorum
-            return View(my.Listele().Where(x=>x.Kullanici.Id==kullanici.Id));  //select*from gibi bütün hepsi gelmesin diye koşul yazdık
-        }
+            if (SessionUser.Login!=null)
+            {
+                return View(my.Listele().Where(x => x.Kullanici.Id == SessionUser.Login.Id));
+            }
 
+            //Kullanici kullanici = Session["login"] as Kullanici ;   //sessiondan bilgi çekiyorum
+            return View(my.Listele());  //select*from gibi bütün hepsi gelmesin diye koşul yazdık
+        }
+        [Auth]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,13 +47,14 @@ namespace MakaleWEB_MVC.Controllers
             }
             return View(makale);
         }
-
+        [Auth]
         public ActionResult Create()
         {
             ViewBag.Kategori = new SelectList(ky.Listele(),"Id","Baslik");//dropdownlisti doldurmak için
             return View();
         }
 
+        [Auth]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Makale makale)
@@ -75,6 +86,7 @@ namespace MakaleWEB_MVC.Controllers
         }
 
         // GET: Makale/Edit/5
+        [Auth]
         public ActionResult Edit(int? id)
         {
             Makale makale = my.MakaleBul(id.Value);
@@ -93,6 +105,7 @@ namespace MakaleWEB_MVC.Controllers
             return View(makale);
         }
 
+        [Auth]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit( Makale makale)
@@ -121,6 +134,7 @@ namespace MakaleWEB_MVC.Controllers
         }
 
         // GET: Makale/Delete/5
+        [Auth]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -136,6 +150,7 @@ namespace MakaleWEB_MVC.Controllers
         }
 
         // POST: Makale/Delete/5
+        [Auth]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -143,14 +158,17 @@ namespace MakaleWEB_MVC.Controllers
             my.MakaleSil(id);
             return RedirectToAction("Index");
         }
+        BegeniYonet by = new BegeniYonet();
+
+        [Auth]
         [HttpPost]
         public ActionResult MakaleGetir(int[] mid)
         {
-            BegeniYonet by=new BegeniYonet();
+           
 
             List<int> mliste = null;
 
-            if (SessionUser.Login!=null) 
+            if (SessionUser.Login!=null && mid!=null) 
             {
                 mliste = by.Liste().Where(x => x.Kullanici.Id == SessionUser.Login.Id && mid.Contains(x.Makale.Id)).Select(x => x.Makale.Id).ToList();
                
@@ -158,5 +176,66 @@ namespace MakaleWEB_MVC.Controllers
             return Json(new { liste = mliste });
 
         }
+
+        [Auth]
+        [HttpPost]  
+        public ActionResult MakaleBegen(int makaleid,bool begeni)
+        {
+            //daha önce begendim mi diye kontrol etmeliyim
+           Begeni like= by.BegeniBul(makaleid, SessionUser.Login.Id);//buradan bana bir tane like dönecek ama dönmeyedebilir.Koşulla kontrol ediyoruz
+            Makale makale = my.MakaleBul(makaleid);
+            int sonuc = 0;
+            if (like!=null&& begeni==false)
+            {
+                //begeniyi burada siliyoruz
+                sonuc=by.BegeniSil(like);
+            }
+            else if (like==null&&begeni==true)//database de değer yok ilk kez beğenicem ya da begeniyi geri alıcam
+            {
+                sonuc = by.BegeniEkle(new Begeni()
+                {
+                    Kullanici = SessionUser.Login,
+                    Makale = makale
+
+                });
+                               
+            }
+            if (sonuc>0)
+            {
+                //sonuc>0 ise ya ekledi ya sildi
+                if (begeni) 
+                {
+                    makale.BegeniSayisi++;
+                }
+                else
+                {
+                    makale.BegeniSayisi--;
+                }
+
+                my.MakaleUpdate(makale);
+
+                return Json(new { hata = false,begenisayisi=makale.BegeniSayisi });
+            }
+            else 
+            {
+                return Json(new {hata=true, begenisayisi = makale.BegeniSayisi });
+            }
+        }
+        
+        public ActionResult MakaleGoster(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Makale makale = my.MakaleBul(id.Value);
+            if (makale == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_PartialPageMakaleGoster", makale);
+        }
+       
+        
     }
 }

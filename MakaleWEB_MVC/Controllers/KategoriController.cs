@@ -8,14 +8,18 @@ using System.Web;
 using System.Web.Mvc;
 using Makale_BLL;
 using Makale_Entities;
+using MakaleWEB_MVC.Filter;
 using MakaleWEB_MVC.Models;
 
 namespace MakaleWeb_MVC.Controllers
 {
+    [Auth]
+    [AuthAdmin]
+    [ExcFilter]//kedni yazdığım hata sayfası için oluşturduğum filter
     public class KategoriController : Controller
     {
         KategoriYönet ky = new KategoriYönet();
-
+        
         public ActionResult Index()
         {
             return View(ky.Listele());

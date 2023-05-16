@@ -58,13 +58,13 @@
                     x = r.Next(200, 240);
                     link = "https://picsum.photos/id/" + x + "/200/300";
 
-
+                    
                     <div class="col-sm-4 col-lg-4 col-md-4" data-makaleid="@item.Id">@*//sayfa yükledniğindeki divlerin içindeki ıdleri çek*@ 
                         <div class="thumbnail">
                             <img src="@link" alt="">
                             <div class="caption">
                                 <h4>
-                                    <a href="#">@item.Baslik</a>
+                                    <a href="#"data-toggle="modal" data-target="#modal_makale" data-makaleid="@item.Id">@item.Baslik</a>
                                 </h4>
                                 <h6 class="text-right">
 
@@ -75,8 +75,8 @@
                                 </h6> @*//devamı butonu oluşturuldu*@
                                 @if (!string.IsNullOrEmpty(item.Icerik) && item.Icerik.Length > 60)
                                 {
-                                    <p>@item.Icerik.Substring(0, 60)</p>//0 dan 60 a kadar olan karakteri almak için                                               substring
-                                    <p class="pull-right"> <a href="#" class="btn btn-default btn-xs">devamı<span class="glyphicon glyphicon-chevron-right"></span></a></p>
+                                    <p>@item.Icerik.Substring(0, 60)</p>//0 dan 60 a kadar olan karakteri almak için substring
+                                    <p class="pull-right"> <a href="#" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_makale" data-makaleid="@item.Id"><span class="glyphicon glyphicon-comment" ></span>devamı<span class="glyphicon glyphicon-chevron-right"></span></a></p>
 
                                 }
                                 else
@@ -91,16 +91,17 @@
 
                                 <p class="pull-right">
                                     <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal1" data-makaleid="@item.Id"><span class="glyphicon glyphicon-comment"></span> Yorumlar</button>
-                                </p>
+                                </p>   
 
                                 <p>
-                                    <button class="btn btn-default btn-sm " data-mid="@item.Id" data-like="false"@*//butona bastım kalbin içini doldur classa bastım kalbin içini boşalt demek için data -like ="false oldu"*@><span class="glyphicon glyphicon-heart-empty like-kalp "></span> <span class="like-count">@item.BegeniSayisi</span></button>
+                                    <button class="btn btn-default btn-sm " data-mid="@item.Id" data-like="false"@*//butona bastım kalbin içini doldur classa bastım kalbin içini boşalt demek için data -like ="false oldu"*@><span class="glyphicon glyphicon-heart-empty like-kalp-@item.Id "></span> <span class="like-@item.Id">@item.BegeniSayisi</span></button>@*//likescripte bak kalbi geri alam vs burada gerçekleşiyor*@
 
                                 </p>
 
                             </div>
                         </div>
                     </div>
+                  
                 }
             </div>
 
@@ -115,6 +116,9 @@
 
 @_MyHelper.ModalPopup("modal1", "Yorumlar")
 
+@_MyHelper.ModalPopup("modal_makale","Makale Detay")
+
+
 @*//footer istediğimiz yerde gözüksğn diye bununla çağırıyoruz.*@
 
 @section footer{
@@ -124,3 +128,18 @@
 <script src="~/Scripts/CommentScript.js"></script>
 
 <script src="~/Scripts/LikeScript.js"></script>
+
+<script>
+    $(function () {
+
+        $('#modal_makale').on('show.bs.modal', function (e) {
+
+            var btn = $(e.relatedTarget); //butonda elementi yakalmış olduyorum.Tıklanılanı yakalmak için relatedTarget kullanılır.
+            mid = btn.data("makaleid");
+
+            $("#modal_makale_body").load("/Makale/MakaleGoster/" + mid);// id vereceksem / ekliyorum routedan dolayı ama id göndermezsem / koymuyorum
+        });
+
+    });
+</script>
+

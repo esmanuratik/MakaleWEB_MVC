@@ -9,9 +9,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MakaleWEB_MVC.Models;
+using MakaleWEB_MVC.Filter;
 
 namespace MakaleWEB_MVC.Controllers
 {
+    [ExcFilter]//kedni yazdığım hata sayfası için oluşturduğum filter
     public class HomeController : Controller
     {
 
@@ -27,9 +29,16 @@ namespace MakaleWEB_MVC.Controllers
             //test.DeleteTest();
             //test.YorumTest();
 
+
+
+            //Kendi oluşturduğumuz Error sayfasını test etmek için açıyorum. 
+            //int i = 0;
+            //int s = 1 / i;
+
             
-            return View(my.Listele());
+            return View(my.Listele().Where(x=>x.Taslak==false).ToList());
         }
+        [Auth]
         public ActionResult Begendiklerim()
         {
             var liste=my.Listele();
@@ -43,7 +52,7 @@ namespace MakaleWEB_MVC.Controllers
             }
             Kategori kat = ky.KategoriBul(id.Value);
             
-            return View("Index",kat.Makaleler);
+            return View("Index",kat.Makaleler.Where(x => x.Taslak == false).OrderByDescending(x => x.BegeniSayisi).ToList());
         }
 
         public PartialViewResult kategoriPartial()//bu kullanılmayacak ikinci bir alternatif böyle de 
@@ -54,7 +63,7 @@ namespace MakaleWEB_MVC.Controllers
         }
         public ActionResult EnBegenilenler()
         {
-            return View("Index",my.Listele().OrderByDescending(x=>x.BegeniSayisi).ToList()); //beğeni sayısını sırala 
+            return View("Index",my.Listele().Where(x => x.Taslak == false).OrderByDescending(x=>x.BegeniSayisi).ToList()); //beğeni sayısını sırala 
         }
         public ActionResult Hakkımızda()
         {
@@ -62,7 +71,7 @@ namespace MakaleWEB_MVC.Controllers
         }
         public ActionResult SonYazilanlar()
         {
-            return View("Index", my.Listele().OrderByDescending(x => x.DegistirmeTarihi).ToList()); //değiştirme sırasına göre sıralasın
+            return View("Index", my.Listele().Where(x => x.Taslak == false).OrderByDescending(x => x.DegistirmeTarihi).ToList()); //değiştirme sırasına göre sıralasın
         }
         [HttpGet]
         public ActionResult Giris()
@@ -158,6 +167,7 @@ namespace MakaleWEB_MVC.Controllers
             //ViewBag.hatalar = TempData["hatalar"];
             return View();  
         }
+        [Auth]
         public ActionResult ProfilGoster()
         {
             //Kullanici kullanici= Session["login"] as Kullanici;
@@ -175,6 +185,7 @@ namespace MakaleWEB_MVC.Controllers
 
         }
         [HttpGet]
+        [Auth]
         public ActionResult ProfiDegistir()
         {
             //kullanıcı bilgilerini sessiondan alıyoruz
@@ -194,6 +205,7 @@ namespace MakaleWEB_MVC.Controllers
         }
 
         [HttpPost]
+        [Auth]
         public ActionResult ProfiDegistir(Kullanici model,HttpPostedFileBase profilresim)
         {
             ModelState.Remove("DegistirenKullanici");
@@ -229,7 +241,7 @@ namespace MakaleWEB_MVC.Controllers
             }
                      
         }
-
+        [Auth]
         public ActionResult ProfilSil()//profil sil indexe yönlednirecek
         {
             //Kullanici kullanici= Session["login"] as Kullanici;
@@ -245,6 +257,14 @@ namespace MakaleWEB_MVC.Controllers
             return RedirectToAction("Index");
 
             //kullancının makalesi varsa kullanıcyı silemezsin 
+        }
+        public ActionResult YetkisizErisim()
+        {
+            return View();
+        }
+        public ActionResult Hatalıİslem()  //Kendi yapacağım hata sayfası için oluşturuldu.
+        {
+            return View();
         }
 
 

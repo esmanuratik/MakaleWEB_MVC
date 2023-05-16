@@ -21,5 +21,17 @@ namespace Makale_BLL
         {
             return rep_begen.Liste();
         }
+        public Begeni BegeniBul(int mid,int kid)
+        {
+           return rep_begen.Find(x => x.Makale.Id == mid && x.Kullanici.Id == kid);
+        }
+        public int BegeniEkle(Begeni begen)
+        {
+            return rep_begen.Insert(begen); 
+        }
+        public int BegeniSil(Begeni begen)
+        {
+            return rep_begen.Delete(begen); 
+        }
     }
 }

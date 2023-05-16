@@ -1,0 +1,28 @@
+﻿@model Makale
+<div class="row">
+    <div class="col-md-12 text-right">
+        <h3>
+            @Model.Baslik
+        </h3>
+    </div>
+    <hr />
+    <div class="col-md-12">
+        <hr />
+    </div>
+    <div class="col-md-12">
+        <span class="glyphicon glyphicon-user">
+            @Model.Kullanici.KullaniciAdi
+        </span>
+        <br />
+        <span class="glyphicon glyphicon-time">
+            @Model.DegistirmeTarihi
+        </span>
+
+    </div>
+    <div class="col-md-12">
+        <hr />
+    </div>
+    <div class="col-md-12">
+        <p>@Model.Icerik</p>
+    </div>
+</div>

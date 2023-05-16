@@ -1,5 +1,6 @@
 ﻿using Makale_BLL;
 using Makale_Entities;
+using MakaleWEB_MVC.Filter;
 using MakaleWEB_MVC.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace MakaleWEB_MVC.Controllers
 {
+    [ExcFilter]//kedni yazdığım hata sayfası için oluşturduğum filter
     public class YorumController : Controller
     {
         // GET: Yorum
@@ -30,6 +32,7 @@ namespace MakaleWEB_MVC.Controllers
 
             return PartialView("_PartialYorumlar",makale.Yorumlar);
         }
+        [Auth]
         [HttpPost]
         public ActionResult YorumGuncelle(int? id,string text)
         {
@@ -58,6 +61,7 @@ namespace MakaleWEB_MVC.Controllers
             return Json(new { hata = true },JsonRequestBehavior.AllowGet);
 
         }
+        [Auth]  
         public ActionResult YorumSil(int?id)
         {
             if (id == null)
@@ -81,7 +85,7 @@ namespace MakaleWEB_MVC.Controllers
 
             return Json(new { hata = true }, JsonRequestBehavior.AllowGet);
         }
-
+        [Auth]
         public ActionResult YorumEkle(Yorum nesne, int? id)
         {
             if (id == null)

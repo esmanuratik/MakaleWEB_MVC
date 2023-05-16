@@ -8,9 +8,13 @@ using System.Web;
 using System.Web.Mvc;
 using Makale_Entities;
 using Makale_BLL;
+using MakaleWEB_MVC.Filter;
 
 namespace MakaleWEB_MVC.Controllers
 {
+    [Auth]
+    [AuthAdmin]
+    [ExcFilter]//kedni yazdığım hata sayfası için oluşturduğum filter
     public class KullaniciController : Controller
     {
        KullaniciYonet ky=new KullaniciYonet();

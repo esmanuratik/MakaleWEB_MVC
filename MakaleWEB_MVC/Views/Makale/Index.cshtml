@@ -80,20 +80,23 @@
                         @Html.DisplayFor(modelItem => item.DegistirenKullanici)
                     </td>
                     <td>
+                        @_MyHelper.LinkButton("/Makale/Edit/" + item.Id, "link", "success", "btn-xs", "edit", "")
+                        @_MyHelper.LinkButton("/Makale/Details/" + item.Id, "link", "warning", "btn-xs", "search", "")
+                        @_MyHelper.LinkButton("/Makale/Delete/" + item.Id, "link", "danger", "btn-xs", "trash", "")
 
-                        @_MyHelper.LinkButton("/Kategori/Edit/" + item.Id, "link", "success", "btn-xs", "edit", "")
-                        @_MyHelper.LinkButton("/Kategori/Details/" + item.Id, "link", "warning", "btn-xs", "search", "")
-                        @_MyHelper.LinkButton("/Kategori/Delete/" + item.Id, "link", "danger", "btn-xs", "trash", "")
-                        
+                        <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal1" data-makaleid="@item.Id"><span class="glyphicon glyphicon-comment"></span></button>
 
                         @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    </td>*@
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>*@
                 </tr>
             }
 
         </table>
+    </div>
 </div>
-</div>
-    
+
+@_MyHelper.ModalPopup("modal1", "Yorumlar")
+<script src="~/Scripts/CommentScript.js"></script>
+
